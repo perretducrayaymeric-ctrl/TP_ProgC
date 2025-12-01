@@ -55,3 +55,25 @@ int main() {
     // Remplir le tableau avec des nombres aléatoires entre -100 et 100
     for (int i = 0; i < TAILLE; i++) {
         tableau[i] = rand() % 201 - 100; // -100 à 100
+    }
+
+    // Trier le tableau
+    tri_bulles(tableau, TAILLE);
+
+    // Afficher le tableau trié
+    printf("Tableau trié :\n");
+    afficher_tableau(tableau, TAILLE);
+
+    // Demander à l'utilisateur l'entier à chercher
+    printf("\nEntrez l'entier que vous souhaitez chercher : ");
+    scanf("%d", &valeur);
+
+    // Rechercher l'entier avec la recherche dichotomique
+    if (recherche_dichotomique(tableau, TAILLE, valeur)) {
+        printf("Résultat : entier présent\n");
+    } else {
+        printf("Résultat : entier absent\n");
+    }
+
+    return 0;
+}
