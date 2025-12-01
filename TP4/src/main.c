@@ -1,29 +1,32 @@
+#include "liste.h"
+#include <stdio.h>
+
 int main() {
-    Etudiant etudiants[NOMBRE_ETUDIANTS];
-    char nom_fichier[] = "etudiant.txt";
+    struct liste_couleurs ma_liste;
+    init_liste(&ma_liste);
 
-    for (int i = 0; i < NOMBRE_ETUDIANTS; i++) {
-        printf("\nEntrez les détails de l'étudiant.e %d :\n", i + 1);
+    // Définir 10 couleurs RGBA
+    struct couleur couleurs[10] = {
+        {0xFF, 0x00, 0x00, 0xFF}, // rouge
+        {0x00, 0xFF, 0x00, 0xFF}, // vert
+        {0x00, 0x00, 0xFF, 0xFF}, // bleu
+        {0xFF, 0xFF, 0x00, 0xFF}, // jaune
+        {0xFF, 0x00, 0xFF, 0xFF}, // magenta
+        {0x00, 0xFF, 0xFF, 0xFF}, // cyan
+        {0x80, 0x80, 0x80, 0xFF}, // gris
+        {0xFF, 0xA5, 0x00, 0xFF}, // orange
+        {0xA5, 0x2A, 0x2A, 0xFF}, // marron
+        {0x00, 0x00, 0x00, 0xFF}  // noir
+    };
 
-        printf("Nom : ");
-        scanf(" %[^\n]", etudiants[i].nom);
-
-        printf("Prénom : ");
-        scanf(" %[^\n]", etudiants[i].prenom);
-
-        printf("Adresse : ");
-        scanf(" %[^\n]", etudiants[i].adresse);
-
-        printf("Note 1 : ");
-        scanf("%d", &etudiants[i].note1);
-
-        printf("Note 2 : ");
-        scanf("%d", &etudiants[i].note2);
+    // Ajouter les couleurs à la liste
+    for (int i = 0; i < 10; i++) {
+        insertion(&couleurs[i], &ma_liste);
     }
 
-    sauvegarder_etudiants(nom_fichier, etudiants, NOMBRE_ETUDIANTS);
-
-    printf("\nLes détails des étudiants ont été enregistrés dans le fichier %s.\n", nom_fichier);
+    // Afficher la liste
+    printf("Liste des couleurs :\n");
+    parcours(&ma_liste);
 
     return 0;
 }
