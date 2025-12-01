@@ -1,26 +1,62 @@
-Affichage des octets de différents types de données
+#include <stdio.h>
 
-Écrivez un programme en C nommé octets.c qui utilise les opérateurs de pointeurs pour afficher les octets individuels de différentes variables de types de données, y compris short, int, long int, float, double et long double. L'objectif est de visualiser la représentation mémoire de ces types de données en octets.
+int main() {
+    short s = 0x0203;
+    int i = 0x01020304;
+    long int li = 0x0102030405060708;
+    float f = 3.14f;
+    double d = 3.14;
+    long double ld = 3.14L;
 
-Exemple: La sortie du programme pourrait ressembler à ceci :
+    unsigned char *p;
 
-Octets de short :
- 02 03
+    // Affichage des octets de short
+    printf("Octets de short :\n");
+    p = (unsigned char *)&s;
+    for (size_t j = 0; j < sizeof(s); j++) {
+        printf("%02x ", p[j]);
+    }
+    printf("\n\n");
 
-Octets de int :
- 01 02 03 04
+    // Affichage des octets de int
+    printf("Octets de int :\n");
+    p = (unsigned char *)&i;
+    for (size_t j = 0; j < sizeof(i); j++) {
+        printf("%02x ", p[j]);
+    }
+    printf("\n\n");
 
-Octets de long int :
- 01 02 03 04 05 06 07 08 
+    // Affichage des octets de long int
+    printf("Octets de long int :\n");
+    p = (unsigned char *)&li;
+    for (size_t j = 0; j < sizeof(li); j++) {
+        printf("%02x ", p[j]);
+    }
+    printf("\n\n");
 
-Octets de float :
- 00 a0 40 11
+    // Affichage des octets de float
+    printf("Octets de float :\n");
+    p = (unsigned char *)&f;
+    for (size_t j = 0; j < sizeof(f); j++) {
+        printf("%02x ", p[j]);
+    }
+    printf("\n\n");
 
-Octets de double :
- 00 00 00 00 00 00 f0 3f
+    // Affichage des octets de double
+    printf("Octets de double :\n");
+    p = (unsigned char *)&d;
+    for (size_t j = 0; j < sizeof(d); j++) {
+        printf("%02x ", p[j]);
+    }
+    printf("\n\n");
 
-Octets de long double :
- 00 00 00 00 00 00 00 00 00 00 f0 7f
-Le programme doit afficher les octets de chaque type de donnée sous forme de valeurs hexadécimales. Il devrait afficher l'ordre des octets dans la mémoire en fonction de l'architecture de la machine (petit-boutiste ou gros-boutiste). Assurez-vous d'utiliser les opérateurs de pointeurs pour accéder aux octets individuels de chaque variable.
+    // Affichage des octets de long double
+    printf("Octets de long double :\n");
+    p = (unsigned char *)&ld;
+    for (size_t j = 0; j < sizeof(ld); j++) {
+        printf("%02x ", p[j]);
+    }
+    printf("\n");
 
-Vous devrez déclarer des variables de chaque type, obtenir leurs adresses et afficher les octets correspondants.
+    return 0;
+}
