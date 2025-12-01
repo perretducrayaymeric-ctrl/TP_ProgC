@@ -1,49 +1,29 @@
-#include <stdio.h>
-#include <string.h>
-#include "fichier.h"
-
 int main() {
-    int choix;
-    char nom_de_fichier[100];
-    char message[500];
+    Etudiant etudiants[NOMBRE_ETUDIANTS];
+    char nom_fichier[] = "etudiant.txt";
 
-    while (1) {
-        printf("\nQue souhaitez-vous faire ?\n");
-        printf("1. Lire un fichier\n");
-        printf("2. Écrire dans un fichier\n");
-        printf("3. Quitter\n");
-        printf("Votre choix : ");
-        scanf("%d", &choix);
-        getchar(); // Consomme le retour à la ligne
+    for (int i = 0; i < NOMBRE_ETUDIANTS; i++) {
+        printf("\nEntrez les détails de l'étudiant.e %d :\n", i + 1);
 
-        switch (choix) {
-            case 1:
-                printf("Entrez le nom du fichier à lire : ");
-                fgets(nom_de_fichier, sizeof(nom_de_fichier), stdin);
-                nom_de_fichier[strcspn(nom_de_fichier, "\n")] = '\0'; // Retirer le '\n'
-                lire_fichier(nom_de_fichier);
-                break;
+        printf("Nom : ");
+        scanf(" %[^\n]", etudiants[i].nom);
 
-            case 2:
-                printf("Entrez le nom du fichier dans lequel vous souhaitez écrire : ");
-                fgets(nom_de_fichier, sizeof(nom_de_fichier), stdin);
-                nom_de_fichier[strcspn(nom_de_fichier, "\n")] = '\0';
+        printf("Prénom : ");
+        scanf(" %[^\n]", etudiants[i].prenom);
 
-                printf("Entrez le message à écrire : ");
-                fgets(message, sizeof(message), stdin);
-                message[strcspn(message, "\n")] = '\0';
+        printf("Adresse : ");
+        scanf(" %[^\n]", etudiants[i].adresse);
 
-                ecrire_dans_fichier(nom_de_fichier, message);
-                break;
+        printf("Note 1 : ");
+        scanf("%d", &etudiants[i].note1);
 
-            case 3:
-                printf("Au revoir !\n");
-                return 0;
-
-            default:
-                printf("Choix invalide. Veuillez réessayer.\n");
-        }
+        printf("Note 2 : ");
+        scanf("%d", &etudiants[i].note2);
     }
+
+    sauvegarder_etudiants(nom_fichier, etudiants, NOMBRE_ETUDIANTS);
+
+    printf("\nLes détails des étudiants ont été enregistrés dans le fichier %s.\n", nom_fichier);
 
     return 0;
 }
