@@ -1,52 +1,49 @@
 #include <stdio.h>
-#include "operator.h"
+#include <string.h>
+#include "fichier.h"
 
 int main() {
-    int num1, num2, result;
-    char op;
+    int choix;
+    char nom_de_fichier[100];
+    char message[500];
 
-    // Entrée utilisateur
-    printf("Entrez num1 : ");
-    scanf("%d", &num1);
-    printf("Entrez num2 : ");
-    scanf("%d", &num2);
-    printf("Entrez l'opérateur (+, -, *, /, %%, &, |, ~) : ");
-    scanf(" %c", &op); // espace avant %c pour consommer le retour à la ligne
+    while (1) {
+        printf("\nQue souhaitez-vous faire ?\n");
+        printf("1. Lire un fichier\n");
+        printf("2. Écrire dans un fichier\n");
+        printf("3. Quitter\n");
+        printf("Votre choix : ");
+        scanf("%d", &choix);
+        getchar(); // Consomme le retour à la ligne
 
-    // Calcul en fonction de l'opérateur
-    switch(op) {
-        case '+':
-            result = somme(num1, num2);
-            break;
-        case '-':
-            result = difference(num1, num2);
-            break;
-        case '*':
-            result = produit(num1, num2);
-            break;
-        case '/':
-            result = quotient(num1, num2);
-            break;
-        case '%':
-            result = modulo(num1, num2);
-            break;
-        case '&':
-            result = et_bitwise(num1, num2);
-            break;
-        case '|':
-            result = ou_bitwise(num1, num2);
-            break;
-        case '~':
-            result = negation(num1);
-            break;
-        default:
-            printf("Opérateur non valide.\n");
-            return 1;
+        switch (choix) {
+            case 1:
+                printf("Entrez le nom du fichier à lire : ");
+                fgets(nom_de_fichier, sizeof(nom_de_fichier), stdin);
+                nom_de_fichier[strcspn(nom_de_fichier, "\n")] = '\0'; // Retirer le '\n'
+                lire_fichier(nom_de_fichier);
+                break;
+
+            case 2:
+                printf("Entrez le nom du fichier dans lequel vous souhaitez écrire : ");
+                fgets(nom_de_fichier, sizeof(nom_de_fichier), stdin);
+                nom_de_fichier[strcspn(nom_de_fichier, "\n")] = '\0';
+
+                printf("Entrez le message à écrire : ");
+                fgets(message, sizeof(message), stdin);
+                message[strcspn(message, "\n")] = '\0';
+
+                ecrire_dans_fichier(nom_de_fichier, message);
+                break;
+
+            case 3:
+                printf("Au revoir !\n");
+                return 0;
+
+            default:
+                printf("Choix invalide. Veuillez réessayer.\n");
+        }
     }
-
-    // Affichage du résultat
-    printf("Résultat : %d\n", result);
 
     return 0;
 }
-
